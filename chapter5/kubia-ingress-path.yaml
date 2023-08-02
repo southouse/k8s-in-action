@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubia
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: kubia.example.com
+      http:
+        paths:
+          - path: /kubia
+            pathType: Prefix
+            backend:
+              service:
+                name: kubia
+                port: 
+                  number: 80
+          - path: /bar
+            pathType: Prefix
+            backend:
+              service:
+                name: bar
+                port: 
+                  number: 80

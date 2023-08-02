@@ -1,0 +1,23 @@
+# kubia.example.com 으로 오는 모든 요청은 kubia-nodeport 서비스의 포트 80으로 전달
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubia
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  tls:
+  - hosts:
+      - kubia.example.com
+    secretName: tls-secret
+  rules:
+    - host: kubia.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kubia-nodeport
+                port: 
+                  number: 80

@@ -26,3 +26,10 @@
     - Hop 수를 줄일 수 있지만, 파드 관리가 되어 있지 않으면 서비스 장애가 발생할 수 있음
     - 트래픽 전달이 균등하게 이루어지지 않을 수 있음
 - 외부로 연결을 수신하면 실제 클라이언트 IP(소스 IP)를 확인하기 어려움
+- `spec.clusterIP`를 `None`으로 설정하면 파드에 연결할 수 있는 클러스터 IP를 생성하지 않기 때문에 `headless` 상태의 서비스가 됨
+- `metadata.annotations.service.alpha.kubernetes.io/tolerate-unready-endpoints` 옵션에 `true` 값을 주면 readiness 상태와 관계 없이 모든 파드를 서비스에 추가함
+
+## ReadinessProbe
+- 주기적으로 프로브를 호출하여 파드가 준비되지 않았다면 서비스에서 제거
+- `livenessProbe`는 상태가 좋지 않은 컨테이너를 새로 만드는 반면, readinessProbe는 서비스 요청에서만 제외하여 정상적인 파드만 수신할 수 있도록 함
+- 파드에 readinessprobe가 정의되어 있지 않으면 시작하는 즉시 서비스에 연결되므로, 항상 정의해야 함

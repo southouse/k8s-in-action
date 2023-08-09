@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-args-from-configmap
+spec:
+  containers:
+    - name: fortune-args
+      image: luksa/fortune:args
+      env:
+        - name: INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              key: sleep-interval
+              name: fortune-config
+      args: ["$(INTERVAL)"]

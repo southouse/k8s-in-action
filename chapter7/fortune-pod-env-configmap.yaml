@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-env-from-configmap
+spec:
+  containers:
+    - name: fortune-env
+      image: luksa/fortune:env
+      env:
+        - name: INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              key: sleep-interval
+              name: fortune-config

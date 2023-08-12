@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-with-ambassador
+spec:
+  containers:
+    - name: main
+      image: curlimages/curl
+      command: ["sleep", "infinity"]
+    - name: ambassador
+      image: bitnami/kubectl
+      command: ["kubectl", "proxy"]

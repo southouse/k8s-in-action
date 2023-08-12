@@ -16,3 +16,7 @@
 - 파드 내에서 API 서버로의 통신
   - API 서버의 인증서는 `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt` 경로에 있음
   - token의 파일 내용을 Authorization HTTP 헤더에 Bearer 토큰으로 넣어서 요청해야 함
+- 앰버서더 패턴 형태로 하나의 파드에 kube-proxy 컨테이너를 생성하여 메인 컨테이너에서 API 서버를 호출할 수 있음
+- 클라이언트 라이브러리로 API 서버에 통신할 수 있음
+  - Java, Golang, Python 등 다양한 언어를 제공
+  - Swagger UI도 제공

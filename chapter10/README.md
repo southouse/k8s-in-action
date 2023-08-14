@@ -1,0 +1,12 @@
+## StatefulSet
+- replicaset 구성에서 pod templete으로 지정한 pvc는 각 복제된 파드가 별도의 pvc를 사용할 수 없기 때문에 `StatefulSet` 리소스를 생성
+- 각각 안정적인 이름과 상태를 가지는 개별 취급 애플리케이션에 좋음
+- replicaset과는 달리 예측 가능한 Pod 이름, 호스트 이름을 갖고 있음
+- statefulset 파드가 사라지면 새로운 파드로 교체하지만, 동일한 Pod 이름, 호스트 이름을 갖게 됨
+- scale down시에 어떤 Pod가 영향을 미칠지 파악할 수 있음
+  - 가장 높은 인덱스를 가지는 Pod가 제거됨
+- 각 파드와 함께하는 pvc template을 가짐
+- scale down 시에 Pod만 삭제하고 pvc는 삭제하지 않고 보존
+- 파드 인스턴스의 최대 하나의 의미(at-most-one-semantics)를 보장
+  - 교체 파드를 생성하기 전에 파드가 더 이상 실행 중이지 않는다는 점을 절대적으로 확신해야 함
+- 여러 개의 replica를 가질 때 하나씩 Pod를 생성

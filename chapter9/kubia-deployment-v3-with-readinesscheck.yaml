@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: kubia
 spec:
+  replicas: 3
+  minReadySeconds: 10
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -11,7 +13,6 @@ spec:
   selector:
     matchLabels:
       app: kubia
-  replicas: 3
   template:
     metadata:
       name: kubia
@@ -20,4 +21,10 @@ spec:
     spec:
       containers:
         - name: nodejs
-          image: luksa/kubia:v1
+          image: luksa/kubia:v3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 1
+            

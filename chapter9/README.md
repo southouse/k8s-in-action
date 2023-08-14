@@ -16,6 +16,35 @@
   - 이로 인해 deployment 오브젝트가 도입이 됨
 
 ## Deployment
+```bash
+kubectl rollout status deploy $(deployment_name) # rollout 상태 확인
+kubectl rollout undo deploy $(deployment_name) # rollout 롤백(되돌리기)
+kubectl rollout undo deploy $(deployment_name) --to-revision $(revision_number) # 특정 버전으로 rollout 롤백(되돌리기)
+kubectl rollout history $(deployment_name) # 개정 이력 확인
+```
 - Deployment를 생성하면 replicaset 리소스가 하위 리소스로 생성됨
   - replicaset은 차세대 replication controller
-- 
+- Deployment 상태를 확인하기 위해 `kubectl rollout` 이라는 명령어를 사용
+- Pod template에 대해 configmap을 사용할 때 수정하면 업데이트 되지 않기 때문에 새로운 configmap을 생성하고 참조하도록 Pod template을 수정
+- revision history를 갖고 있기 때문에 원하는 버전으로 롤백이 가능
+  - 각 revision 정보를 갖고 있는 replicaset을 가지고 있어야 가능
+- `editionHistoryLimit` 속성으로 revision history 수를 제한할 수 있음
+- `spec.strategy.rollingUpdate`
+  - `maxSurge`
+    - 기본값은 25%
+    - 업데이트 중 동시에 생성하는 파드 갯수
+  - `maxUnavailable`
+    - 기본값은 25%
+    - 동시에 삭제할 수 있는 파드의 최대 갯수
+- `spec.minReadySeconds`
+  - readinessProbe와 적절하게 섞어서 사용하면 잘못된 이미지의 배포를 중단할 수 있음
+  - pod의 status가 ready가 될때까지의 최소 대기 시간
+  - 설정된 시간동안 새로운 버전의 파드는 트래픽을 받지 않음
+- 기본적으로 롤아웃이 10분 이상 진행되지 않으면 실패한 것으로 간주
+- `spec.progressDeadlineSeconds` 를 설정하여 롤아웃의 실패 시간을 설정할 수 있음
+- 전략
+  - recreate
+    - 기존 버전의 파드를 모두 삭제하고 새 버전의 파드를 생성
+    - 다운타임이 발생
+  - rolling update
+    - 이전 버전의 파드를 하나씩 제거하고 동시에 새 버전의 파드를 추가해 다운타임이 없음

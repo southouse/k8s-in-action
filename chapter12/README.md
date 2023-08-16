@@ -16,3 +16,25 @@
 - 새로 생성한 네임스페이스의 기본 서비스 어카운트로는 리소스를 가져오거나(Get) 나열(List)할 수 없음
 - 하나의 rolebinding는 여러 개의 서비스 어카운트를 가질 수 있고, 하나의 role만 가질 수 있음
 - 다른 네임스페이스에 생성된 role도 부여 가능
+- ClusterRole, ClusterRoleBinding이 필요한 이유
+  - 네임스페이스 단위로 생성되는 리소스의 권한을 클러스터 단위로 관리하기 위해서
+    - 만약 ClusterRole과 ClusterRoleBinding이 없다면, 네임스페이스마다 Role과 RoleBinding을 생성해야 함
+  - 네임스페이스를 지정하지 않는 리소스가 있기 때문
+  - URL에 관한 액세스 권한을 부여할 수 있기 때문
+- 클러스터 수준 리소스에 액세스 권한을 부여하려면 항상 ClusterRole과 ClusterRoleBinding을 사용해야 함
+- ClusterRole은 항상 클러스터 수준으로 바인딩될 필요가 없고, 일반적인 RoleBinding에 바인딩 될 수 있음
+  |접근|롤 타입|사용할 바인딩 타입
+  |---|---|---|
+  |클러스터 수준 리소스|ClusterRole|ClusterRoleBinding|
+  |리소스가 아닌 URL|ClusterRole|ClusterRoleBinding|
+  |모든 네임스페이스의 네임스페이스로 지정된 리소스|ClusterRole|ClusterRoleBinding|
+  |특정 네임스페이스의 네임스페이스로 지정된 리소스(여러 네임스페이스에 동일한 ClusterRole 재사용)|ClusterRole|RoleBinding
+  |특정 네임스페이스의 네임스페이스로 지정된 리소스(각 네임스페이스에 Role을 정의)|Role|RoleBinding
+- 디폴트 ClusterRole
+  - view
+    - Role, RoleBinding, Secret 리소스를 제외한 모든 리소스를 읽을 수 있음
+  - edit
+    - Secret을 읽고 수정할 수 있지만, Role 또는 RoleBinding을 보거나 수정하는 건 허용되지 않음
+  - admin
+    - ResourceQuotas와 namespace 리소스를 제외한 모든 리소스를 읽고 수정할 수 있음
+- 각 파드를 위한 특정 서비스 어카운트를 생성하고 맞춤형 롤과 연계하는 것이 바람직한 접근 방법

@@ -97,4 +97,3 @@
 - cAdvisor 메트릭을 수집하고 힙스터(현재는 metrics-server)로 전송
 - `kubectl top ${RESOURCE_NAME}` 으로 메트릭을 확인
 - cAdvisor와 metrics-server는 짧은 기간의 리소스 사용량 데이터를 보유해서 따로 데이터 저장을 위한 도구(InfluxDB 등)와 시각화와 분석을 위한 도구(Grafana 등)을 이용
-- 

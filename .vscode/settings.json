@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "Kubernetes": "*.yaml",
+        "https://json.schemastore.org/kustomization.json": "file:///Users/southouse/workspace/southouse/git/k8s-in-action/chapter13/pod-security-policy.yaml"
+    }
+}

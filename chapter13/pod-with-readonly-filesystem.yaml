@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-readonly-filesystem
+spec:
+  containers:
+    - name: main
+      image: alpine
+      command:
+        - "/bin/sleep"
+        - "infinity"
+      securityContext:
+        readOnlyRootFilesystem: true
+      volumeMounts:
+        - mountPath: /volume
+          name: my-volume
+          readOnly: false
+  volumes:
+    - name: my-volume
+      emptyDir: {}

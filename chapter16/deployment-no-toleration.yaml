@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: no-toleration
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      env: dev
+  template:
+    metadata:
+      labels:
+        name: no-toleration
+        env: dev
+    spec:
+      containers:
+        - name: main
+          image: busybox
+          command:
+            - "sleep"
+            - "infinity"

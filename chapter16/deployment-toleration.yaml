@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: toleration
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      env: production
+  template:
+    metadata:
+      labels:
+        name: toleration
+        env: production
+    spec:
+      containers:
+        - name: main
+          image: busybox
+          command:
+            - "sleep"
+            - "infinity"
+      tolerations:
+        - key: node-type
+          operator: Equal
+          value: production
+          effect: NoSchedule

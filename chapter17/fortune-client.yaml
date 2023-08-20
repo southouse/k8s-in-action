@@ -9,23 +9,10 @@ spec:
       command:
         - sh
         - -c
-        - 'while true; do echo "Waiting for fortune service to come up..."; wget http://web-server -q -T 1 -O /dev/null >/dev/null 2>/dev/null && break; sleep 1; done; echo "Service is up! Starting main container."'
+        - 'while true; do echo "Waiting for fortune service to come up..."; wget http://fortune -q -T 1 -O /dev/null >/dev/null 2>/dev/null && break; sleep 1; done; echo "Service is up! Starting main container."'
   containers:
-     - name: html-generator
-       image: luksa/fortune
-       volumeMounts:
-        - mountPath: /var/htdocs
-          name: html
-     - name: web-server
-       image: nginx:alpine
-       volumeMounts:
-        - mountPath: /usr/share/nginx/html
-          name: html
-          readOnly: true
-       ports:
-        - containerPort: 80
-          protocol: TCP
-  volumes:
-    - name: html
-      emptyDir:
-        medium: Memory
+    - name: main
+      image: busybox
+      command:
+        - "sleep"
+        - "infinity"

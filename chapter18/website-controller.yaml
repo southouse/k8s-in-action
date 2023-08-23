@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: website-controller
+  template:
+    metadata:
+      labels:
+        name: website-controller
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: minikube
+      serviceAccountName: website-controller
+      containers:
+        - name: main
+          image: southouse/website-controller:0.6
+        - name: proxxy
+          image: bitnami/kubectl
+          command: ["kubectl", "proxy"]

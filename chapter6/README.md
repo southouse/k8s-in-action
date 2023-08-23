@@ -11,7 +11,7 @@
     - 노드의 파일시스템이기 때문에 파드가 종료되어도 데이터가 삭제되지 않음
     - 노드의 스케줄링에 민감
     - 파드의 데이터 저장용으로 사용하는 방식은 권장되지 않음
-  - Deprecated ~~`gitRepo`: Git 콘텐츠를 체크아웃해 초기화해 마운트~~
+  - `Deprecated` ~~`gitRepo`: Git 콘텐츠를 체크아웃해 초기화해 마운트~~
   - `nfs`
   - `awsElasticBlockStore`: 클라우드 제공자의 전용 스토리지를 마운트
   - `cinder`, `iscsi`, `vsphereVolume` 등: 기타 다른 유형의 스토리지

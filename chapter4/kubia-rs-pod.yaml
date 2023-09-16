@@ -6,5 +6,8 @@ metadata:
     app: kubia-pod
 spec:
   containers:
-    - image: luksa/kubia:latest
+    - image: luksa/kubia
       name: kubia
+      ports:
+      - name: http
+        containerPort: 8080

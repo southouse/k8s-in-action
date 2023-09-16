@@ -28,7 +28,12 @@
 ## Job
 - 기존 리소스와는 다르게 완료 상태를 가지고 있는 리소스로 컨테이너 내부의 프로세스가 실행되고 성공적으로 마무리되면 사라짐
 - `spec.template.spec.restartPolicy` 를 명시적으로 설정해야 함
+  - restartPolicy의 옵션
+    - Always (default): Container들이 정상적으로 종료(zero exit code)되었더라도 재시작하는 정책 (Web 서버에 많이 사용)
+    - OnFailure : Container가 비정상적으로 종료(non-zero exit code)하는 경우에만 재시작하는 정책 (Job에 많이 사용)
+    - Never: Container의 exit code와 관계없이 재시작하지 않는 정책
 - `spec.completions`는 완료되어야 할 Job의 개수, `spec.parallelism`는 한번에 처리할 잡의 개수 (병렬)
+  - 만약 completions가 5개이고 parallelism은 2개일 때, 4개가 성공한 시기에 마지막으로 생성되는 파드 개수는 1개
 
 ## Cronjob
 - `spec.startingDeadlineSeconds`으로 파드가 적어도 해당 설정 값 시간을 넘어서 실행된다고 실패로 간주함

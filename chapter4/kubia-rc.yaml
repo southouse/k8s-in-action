@@ -5,11 +5,11 @@ metadata:
 spec:
   replicas: 3
   selector:
-    app: kubia
+    app: foo
   template:
     metadata:
       labels:
-        app: kubia
+        app: foo
     spec:
       containers:
         - name: kubia

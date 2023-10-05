@@ -20,4 +20,6 @@ spec:
           protocol: TCP
   volumes:
     - name: html
-      emptyDir: {}
+      awsElasticBlockStore:
+        volumeID: aws://ap-northeast-2a/vol-
+        fsType: ext4

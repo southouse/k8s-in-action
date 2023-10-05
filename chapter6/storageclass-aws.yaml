@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: sc-aws
+provisioner: kubernetes.io/aws-ebs
+volumeBindingMode: WaitForFirstConsumer # 파드가 생성될때 까지 마운트를 지연
+parameters:
+  type: io1
+  iopsPerGB: "10"
+  fsType: ext4

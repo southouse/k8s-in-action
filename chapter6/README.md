@@ -6,6 +6,7 @@
 - 유형
   - `emptyDir`
     - 일시적인 데이터 저장
+    - 같은 파드 내에 여러 컨테이너가 있을 때 볼륨을 공유할 수 있음
     - 메모리를 사용하는 `tmpfs` 파일시스템으로 생성하려면 `spec.volumes.emptyDir.medium: Memory`
   - `hostPath`
     - 워커 노드의 파일시스템을 파드로 마운트

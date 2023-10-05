@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: fortune
+  name: hostpath-pod
 spec:
   containers:
     - name: html-generator
@@ -20,4 +20,6 @@ spec:
           protocol: TCP
   volumes:
     - name: html
-      emptyDir: {}
+      hostPath:
+        path: /data/hostpath-pod
+        type: DirectoryOrCreate

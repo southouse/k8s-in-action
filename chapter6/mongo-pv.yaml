@@ -10,4 +10,4 @@ spec:
     - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain # PVC가 해제된 후, PV 유지
   hostPath:
-    path: /data/mongo/
+    path: /tmp/data/mongo

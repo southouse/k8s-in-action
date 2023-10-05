@@ -1,3 +1,4 @@
+# Chapter6 - 볼륨: 컨테이너에 디스크 스토리지 연결
 ## Volume
 > `minikube` 환경에서 실습을 진행하기 때문에, 책에서 일부 클라우드 제공자 전용 스토리지를 사용하는 부분과 상이할 수 있음
 
@@ -17,8 +18,10 @@
   - `cinder`, `iscsi`, `vsphereVolume` 등: 기타 다른 유형의 스토리지
   - `configMap`, `secret`, `downwardAPI`: k8s 리소스나 클러스터 정보를 파드에 노출하는데 사용하는 특별한 유형의 볼륨
   - `persistentVolumeClaim`
+    ![Alt text](image.png)
     - 동적으로 프로비저닝된 PV를 사용하는 방법
     - PV, PVC를 사용하면 개발자 입장에서 기저에 사용된 실제 스토리지 기술을 알 필요가 없이 사용이 가능
+    ![Alt text](image-1.png)
     - `spec.persistentVolumeReclaimPolicy: Retain` 옵션이 설정되어 있으면, PVC를 삭제하고 다시 만들 때 마운트가 되지 않음
     - `spec.storageClassName`을 빼면 기본 sc로, 옵션에 "" 공백을 넣으면 sc를 사용하지 않음
 - Storage Class
